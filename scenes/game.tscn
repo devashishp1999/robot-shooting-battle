@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://bog0g3fnqau72"]
+[gd_scene load_steps=9 format=3 uid="uid://bog0g3fnqau72"]
 
 [ext_resource type="Script" uid="uid://8rw21715swen" path="res://scripts/game.gd" id="1_lnu2h"]
 [ext_resource type="Texture2D" uid="uid://cqrpyxanrrck8" path="res://assets/white_tile.png" id="1_uwrxv"]
 [ext_resource type="PackedScene" uid="uid://omrjqs00dnis" path="res://scenes/arena.tscn" id="2_yqjtg"]
+[ext_resource type="Texture2D" uid="uid://bxjo1p7h26a8w" path="res://assets/robot_face.png" id="3_iywne"]
 [ext_resource type="PackedScene" uid="uid://cmojqegg2pny6" path="res://scenes/player_area.tscn" id="4_lbhrr"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lbhrr"]
@@ -10,6 +11,9 @@ bg_color = Color(5.29438e-06, 0.705264, 0.530587, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iywne"]
 bg_color = Color(0.965691, 0.381871, 0.33667, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p57ef"]
+bg_color = Color(1, 0.238481, 0.670573, 1)
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_lnu2h")
@@ -63,39 +67,102 @@ value = 40.0
 fill_mode = 3
 show_percentage = false
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI"]
+[node name="TopUI" type="HBoxContainer" parent="UI"]
+layout_direction = 2
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -110.0
-offset_top = -20.0
-offset_right = 110.0
-offset_bottom = 20.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="Left" type="HBoxContainer" parent="UI/TopUI"]
+layout_direction = 2
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="LAvatar" type="HBoxContainer" parent="UI/TopUI/Left"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+alignment = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="UI/TopUI/Left/LAvatar"]
+position = Vector2(28, 40)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("3_iywne")
+
+[node name="LSPBar" type="ProgressBar" parent="UI/TopUI/Left"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_styles/fill = SubResource("StyleBoxFlat_p57ef")
+value = 80.0
+show_percentage = false
+
+[node name="LSPTimer" type="Timer" parent="UI/TopUI/Left"]
+unique_name_in_owner = true
+process_callback = 0
+wait_time = 0.1
+
+[node name="Names" type="HBoxContainer" parent="UI/TopUI"]
+layout_mode = 2
 theme_override_constants/separation = 30
 
-[node name="LPlayerName" type="Label" parent="UI/HBoxContainer"]
+[node name="LPlayerName" type="Label" parent="UI/TopUI/Names"]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 28
 text = "Player 1"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="VS" type="Label" parent="UI/HBoxContainer"]
+[node name="VS" type="Label" parent="UI/TopUI/Names"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 42
 text = "VS"
 
-[node name="RPlayerName" type="Label" parent="UI/HBoxContainer"]
+[node name="RPlayerName" type="Label" parent="UI/TopUI/Names"]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 28
 text = "Player 2"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Right" type="HBoxContainer" parent="UI/TopUI"]
+layout_direction = 2
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="RSPBar" type="ProgressBar" parent="UI/TopUI/Right"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_styles/fill = SubResource("StyleBoxFlat_p57ef")
+value = 80.0
+fill_mode = 1
+show_percentage = false
+
+[node name="RAvatar" type="HBoxContainer" parent="UI/TopUI/Right"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+alignment = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="UI/TopUI/Right/RAvatar"]
+position = Vector2(28, 40)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("3_iywne")
 
 [node name="Arena" parent="." instance=ExtResource("2_yqjtg")]
 position = Vector2(578, 351)
@@ -107,3 +174,5 @@ scale = Vector2(1.67, 1.67)
 
 [node name="GridContainer" type="GridContainer" parent="."]
 size_flags_horizontal = 0
+
+[connection signal="timeout" from="UI/TopUI/Left/LSPTimer" to="." method="_on_lsp_timer_timeout"]

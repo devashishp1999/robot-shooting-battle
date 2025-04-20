@@ -9,7 +9,7 @@ const SPEED = 500
 const ARENA_SIZE = Vector2(290, 296) 
 
 var health = 100;
-var super_power = false
+var has_super_power = false
 
 func _ready() -> void:
 	emitUpdates()
@@ -26,7 +26,9 @@ func _physics_process(delta: float) -> void:
 		shoot()
 	
 	if Input.is_action_just_pressed("rsp1"):
-		super_power = true;
+		if has_super_power:
+			superPower()
+
 
 func shoot():
 	var bullet = BULLET.instantiate()
@@ -34,6 +36,14 @@ func shoot():
 	bullet.shooter = self
 	bullet.rotation_degrees = 180
 	get_tree().current_scene.add_child(bullet)
+
+	
+func superPower():
+	if !has_super_power:
+		return
+	
+	print('Right SUPER POWER');
+	has_super_power = false;
 
 func take_damage(amount = 10):
 	decrease_health(amount)

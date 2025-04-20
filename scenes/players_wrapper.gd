@@ -28,7 +28,8 @@ func _on_player_left_update(update) -> void:
 func _on_player_right_update(update) -> void:
 	var healthBar: ProgressBar = get_parent().get_node("%RHealthBar")
 	updateHealthBar(healthBar, update.health)
-	
+
+
 
 
 func _on_player_left_died() -> void:
