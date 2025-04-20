@@ -1,0 +1,78 @@
+[gd_scene load_steps=7 format=3 uid="uid://cmojqegg2pny6"]
+
+[ext_resource type="Script" uid="uid://d2y008r5be2gf" path="res://scenes/players_wrapper.gd" id="1_q2auh"]
+[ext_resource type="Texture2D" uid="uid://cqrpyxanrrck8" path="res://assets/white_tile.png" id="1_r5u54"]
+[ext_resource type="Script" uid="uid://cguf5y0nbui3m" path="res://scripts/player_left.gd" id="2_6wiya"]
+[ext_resource type="Script" uid="uid://bdxjnj7gf1ua8" path="res://scripts/player_right.gd" id="3_q2auh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q2auh"]
+size = Vector2(300, 306)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qmaxl"]
+size = Vector2(19.2, 19.2)
+
+[node name="PlayerAreas" type="Node2D"]
+script = ExtResource("1_q2auh")
+
+[node name="AreaLeft" type="Area2D" parent="."]
+position = Vector2(150, 150)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaLeft"]
+visible = false
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_q2auh")
+
+[node name="Sprite2D" type="Sprite2D" parent="AreaLeft"]
+modulate = Color(1, 0.501961, 1, 0)
+position = Vector2(0, 3)
+scale = Vector2(9.375, 9.563)
+texture = ExtResource("1_r5u54")
+
+[node name="AreaRight" type="Area2D" parent="."]
+position = Vector2(460, 150)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaRight"]
+visible = false
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_q2auh")
+
+[node name="Sprite2D" type="Sprite2D" parent="AreaRight"]
+modulate = Color(1, 0.501961, 1, 0)
+position = Vector2(0, 3)
+scale = Vector2(9.375, 9.563)
+texture = ExtResource("1_r5u54")
+
+[node name="PlayerLeft" type="CharacterBody2D" parent="."]
+position = Vector2(16, 16)
+script = ExtResource("2_6wiya")
+
+[node name="Sprite2D" type="Sprite2D" parent="PlayerLeft"]
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("1_r5u54")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerLeft"]
+shape = SubResource("RectangleShape2D_qmaxl")
+
+[node name="LShootingPoint" type="Marker2D" parent="PlayerLeft"]
+unique_name_in_owner = true
+position = Vector2(12, 0)
+
+[node name="PlayerRight" type="CharacterBody2D" parent="."]
+position = Vector2(589, 285)
+script = ExtResource("3_q2auh")
+
+[node name="Sprite2D" type="Sprite2D" parent="PlayerRight"]
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("1_r5u54")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerRight"]
+shape = SubResource("RectangleShape2D_qmaxl")
+
+[node name="RShootingPoint" type="Marker2D" parent="PlayerRight"]
+unique_name_in_owner = true
+position = Vector2(-12, 0)
+
+[connection signal="died" from="PlayerLeft" to="." method="_on_player_left_died"]
+[connection signal="update" from="PlayerLeft" to="." method="_on_player_left_update"]
+[connection signal="died" from="PlayerRight" to="." method="_on_player_right_died"]
+[connection signal="update" from="PlayerRight" to="." method="_on_player_right_update"]

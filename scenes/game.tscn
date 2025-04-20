@@ -1,0 +1,109 @@
+[gd_scene load_steps=7 format=3 uid="uid://bog0g3fnqau72"]
+
+[ext_resource type="Script" uid="uid://8rw21715swen" path="res://scripts/game.gd" id="1_lnu2h"]
+[ext_resource type="Texture2D" uid="uid://cqrpyxanrrck8" path="res://assets/white_tile.png" id="1_uwrxv"]
+[ext_resource type="PackedScene" uid="uid://omrjqs00dnis" path="res://scenes/arena.tscn" id="2_yqjtg"]
+[ext_resource type="PackedScene" uid="uid://cmojqegg2pny6" path="res://scenes/player_area.tscn" id="4_lbhrr"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lbhrr"]
+bg_color = Color(5.29438e-06, 0.705264, 0.530587, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iywne"]
+bg_color = Color(0.965691, 0.381871, 0.33667, 1)
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_lnu2h")
+
+[node name="UI" type="Control" parent="."]
+physics_interpolation_mode = 1
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 1155.0
+offset_bottom = 87.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="Sprite2D" parent="UI"]
+modulate = Color(0.683077, 0.683077, 0.683077, 1)
+position = Vector2(578, 327.5)
+scale = Vector2(37.125, 21.4687)
+texture = ExtResource("1_uwrxv")
+
+[node name="PlayerLeft" type="Node" parent="UI"]
+
+[node name="LHealthBar" type="ProgressBar" parent="UI/PlayerLeft"]
+unique_name_in_owner = true
+offset_left = 11.0
+offset_top = 89.0
+offset_right = 49.0
+offset_bottom = 609.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_lbhrr")
+step = 10.0
+value = 40.0
+fill_mode = 3
+show_percentage = false
+
+[node name="PlayerRight" type="Node" parent="UI"]
+
+[node name="RHealthBar" type="ProgressBar" parent="UI/PlayerRight"]
+unique_name_in_owner = true
+offset_left = 1106.0
+offset_top = 89.0
+offset_right = 1144.0
+offset_bottom = 609.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_iywne")
+step = 10.0
+value = 40.0
+fill_mode = 3
+show_percentage = false
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -110.0
+offset_top = -20.0
+offset_right = 110.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 30
+
+[node name="LPlayerName" type="Label" parent="UI/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Player 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VS" type="Label" parent="UI/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 42
+text = "VS"
+
+[node name="RPlayerName" type="Label" parent="UI/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Player 2"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Arena" parent="." instance=ExtResource("2_yqjtg")]
+position = Vector2(578, 351)
+scale = Vector2(1.67, 1.67)
+
+[node name="PlayerAreas" parent="." instance=ExtResource("4_lbhrr")]
+position = Vector2(68.8755, 95.5351)
+scale = Vector2(1.67, 1.67)
+
+[node name="GridContainer" type="GridContainer" parent="."]
+size_flags_horizontal = 0
