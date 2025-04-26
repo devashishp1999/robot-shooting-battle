@@ -2,18 +2,30 @@
 
 [ext_resource type="Script" uid="uid://8rw21715swen" path="res://scripts/game.gd" id="1_lnu2h"]
 [ext_resource type="Texture2D" uid="uid://cqrpyxanrrck8" path="res://assets/white_tile.png" id="1_uwrxv"]
-[ext_resource type="PackedScene" uid="uid://omrjqs00dnis" path="res://scenes/arena.tscn" id="2_yqjtg"]
+[ext_resource type="PackedScene" uid="uid://omrjqs00dnis" path="res://scenes/game_scenes/arena.tscn" id="2_yqjtg"]
 [ext_resource type="Texture2D" uid="uid://bxjo1p7h26a8w" path="res://assets/robot_face.png" id="3_iywne"]
-[ext_resource type="PackedScene" uid="uid://cmojqegg2pny6" path="res://scenes/player_area.tscn" id="4_lbhrr"]
+[ext_resource type="PackedScene" uid="uid://cmojqegg2pny6" path="res://scenes/game_scenes/player_area.tscn" id="4_lbhrr"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lbhrr"]
 bg_color = Color(5.29438e-06, 0.705264, 0.530587, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iywne"]
 bg_color = Color(0.965691, 0.381871, 0.33667, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p57ef"]
 bg_color = Color(1, 0.238481, 0.670573, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_lnu2h")
@@ -73,6 +85,7 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 3.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 40
@@ -117,6 +130,7 @@ theme_override_constants/separation = 30
 
 [node name="LPlayerName" type="Label" parent="UI/TopUI/Names"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 28
 text = "Player 1"
@@ -130,6 +144,7 @@ text = "VS"
 
 [node name="RPlayerName" type="Label" parent="UI/TopUI/Names"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 28
 text = "Player 2"
@@ -144,6 +159,7 @@ theme_override_constants/separation = 0
 alignment = 1
 
 [node name="RSPBar" type="ProgressBar" parent="UI/TopUI/Right"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -164,6 +180,11 @@ position = Vector2(28, 40)
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("3_iywne")
 
+[node name="RSPTimer" type="Timer" parent="UI/TopUI/Right"]
+unique_name_in_owner = true
+process_callback = 0
+wait_time = 0.1
+
 [node name="Arena" parent="." instance=ExtResource("2_yqjtg")]
 position = Vector2(578, 351)
 scale = Vector2(1.67, 1.67)
@@ -176,3 +197,6 @@ scale = Vector2(1.67, 1.67)
 size_flags_horizontal = 0
 
 [connection signal="timeout" from="UI/TopUI/Left/LSPTimer" to="." method="_on_lsp_timer_timeout"]
+[connection signal="timeout" from="UI/TopUI/Right/RSPTimer" to="." method="_on_rsp_timer_timeout"]
+[connection signal="lsp" from="PlayerAreas" to="." method="_on_player_areas_lsp"]
+[connection signal="rsp" from="PlayerAreas" to="." method="_on_player_areas_rsp"]

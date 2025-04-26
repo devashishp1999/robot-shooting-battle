@@ -4,7 +4,7 @@ signal update
 signal super_power
 signal died
 
-const BULLET = preload("res://scenes/bullet.tscn")
+const BULLET = preload("res://scenes/game_scenes/bullet.tscn")
 const SPEED = 500
 const ARENA_SIZE = Vector2(290, 296) 
 
@@ -30,7 +30,7 @@ func _physics_process(delta: float) -> void:
 		shoot()
 	
 	if Input.is_action_just_pressed("lsp1"):
-		superPower()
+		use_superpower()
 
 
 func shoot():
@@ -39,9 +39,8 @@ func shoot():
 	bullet.shooter = self
 	get_tree().current_scene.add_child(bullet)
 
-func superPower():
-	if !can_use_superpower:
-		return
+func use_superpower():
+	if !can_use_superpower: return
 	
 	super_power.emit()
 	can_use_superpower = false

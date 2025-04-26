@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://drt45tbxmmdpb"]
 
-[ext_resource type="Script" uid="uid://bu4vqnlj7yktu" path="res://scripts/bullet.gd" id="1_y25gk"]
-[ext_resource type="Texture2D" uid="uid://cqrpyxanrrck8" path="res://assets/white_tile.png" id="2_l5glv"]
+[ext_resource type="Script" uid="uid://bu4vqnlj7yktu" path="res://scripts/bullet.gd" id="1_7rswr"]
+[ext_resource type="Texture2D" uid="uid://cqrpyxanrrck8" path="res://assets/white_tile.png" id="2_ndxiy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eoqba"]
 size = Vector2(32, 16)
@@ -9,7 +9,7 @@ size = Vector2(32, 16)
 [node name="Bullet" type="Area2D" groups=["bullets"]]
 top_level = true
 collision_mask = 3
-script = ExtResource("1_y25gk")
+script = ExtResource("1_7rswr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(16, 0)
@@ -19,7 +19,7 @@ shape = SubResource("RectangleShape2D_eoqba")
 modulate = Color(1, 0, 0, 1)
 position = Vector2(16, 0)
 scale = Vector2(1, 0.5)
-texture = ExtResource("2_l5glv")
+texture = ExtResource("2_ndxiy")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

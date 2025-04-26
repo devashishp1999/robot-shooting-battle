@@ -1,10 +1,14 @@
 extends Node2D
 
 signal updated
+signal lsp
+signal rsp
 
 @onready var player_left: CharacterBody2D = $PlayerLeft
 @onready var player_right: CharacterBody2D = $PlayerRight
 
+func _ready() -> void:
+	pass
 
 # updates health-bar value and color
 func updateHealthBar(healthBar: ProgressBar, health: int):
@@ -40,3 +44,10 @@ func _on_player_left_died() -> void:
 func _on_player_right_died() -> void:
 	print('right died')
 	get_tree().paused = true
+
+
+func _on_player_left_super_power() -> void:
+	lsp.emit()
+
+func _on_player_right_super_power() -> void:
+	rsp.emit()

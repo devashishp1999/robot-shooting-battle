@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://cmojqegg2pny6"]
 
-[ext_resource type="Script" uid="uid://d2y008r5be2gf" path="res://scenes/players_wrapper.gd" id="1_q2auh"]
+[ext_resource type="Script" uid="uid://d2y008r5be2gf" path="res://scripts/players_wrapper.gd" id="1_q2auh"]
 [ext_resource type="Texture2D" uid="uid://cqrpyxanrrck8" path="res://assets/white_tile.png" id="1_r5u54"]
 [ext_resource type="Script" uid="uid://cguf5y0nbui3m" path="res://scripts/player_left.gd" id="2_6wiya"]
 [ext_resource type="Script" uid="uid://bdxjnj7gf1ua8" path="res://scripts/player_right.gd" id="3_q2auh"]
@@ -18,7 +18,6 @@ script = ExtResource("1_q2auh")
 position = Vector2(150, 150)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AreaLeft"]
-visible = false
 position = Vector2(0, 3)
 shape = SubResource("RectangleShape2D_q2auh")
 
@@ -32,7 +31,6 @@ texture = ExtResource("1_r5u54")
 position = Vector2(460, 150)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AreaRight"]
-visible = false
 position = Vector2(0, 3)
 shape = SubResource("RectangleShape2D_q2auh")
 
@@ -73,6 +71,8 @@ unique_name_in_owner = true
 position = Vector2(-12, 0)
 
 [connection signal="died" from="PlayerLeft" to="." method="_on_player_left_died"]
+[connection signal="super_power" from="PlayerLeft" to="." method="_on_player_left_super_power"]
 [connection signal="update" from="PlayerLeft" to="." method="_on_player_left_update"]
 [connection signal="died" from="PlayerRight" to="." method="_on_player_right_died"]
+[connection signal="super_power" from="PlayerRight" to="." method="_on_player_right_super_power"]
 [connection signal="update" from="PlayerRight" to="." method="_on_player_right_update"]
